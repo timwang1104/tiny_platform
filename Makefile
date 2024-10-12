@@ -10,13 +10,8 @@ BUILD_DIR = $(SIM_HOME)/build
 # Build files
 OBJ_DIR = $(BUILD_DIR)/obj_dir
 
-# Read cc source files
-CSRCS := $(shell find $(SIM_HOME)/csrcs -name "*.cc")
-CSRCS_INC := $(shell find $(SIM_HOME)/csrcs -name "*.h")
-
-# Read verilog source files
-VSRCS := $(shell find $(SIM_HOME)/rtl -name "*.sv")
-VSRCS_INC := $(shell find $(TINY_HOME)/shared/util -name "*.svh" -or -name "*.vh")
+# Read env source files
+include $(TINY_HOME)/scripts/env.mk
 
 # Read core files
 include $(TINY_HOME)/rtl/core.mk
@@ -27,7 +22,11 @@ include $(SIM_HOME)/scripts/shared.mk
 # Read dv source files
 include $(TINY_HOME)/vendor/lowrisc_ip/dv/verilator/verilator.mk
 include $(SIM_HOME)/scripts/pcount.mk
+
+ifeq ($(COSIM),yes)
 include $(SIM_HOME)/scripts/cosim.mk
+endif
+
 
 # test image
 IMAGE = $(TINY_HOME)/examples/tiny_sdk/software/hello_world/hello_world.elf

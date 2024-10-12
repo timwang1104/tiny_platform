@@ -35,10 +35,3 @@ int TinyEmulatorCosim::SetUp(int argc, char **argv, bool &exit_app) {
 
     return 0;
 }
-
-bool TinyEmulatorCosim::Finish() {
-    std::cout << "Co-simulation matched " << _cosim->get_insn_cnt()
-              << " instructions\n";
-
-    return TinyEmulator::Finish();
-}

@@ -1,8 +1,6 @@
 COSIM_HOME = $(TINY_HOME)/dv/verilator/simple_system_cosim
 
-ifeq ($(COSIM),yes)
 $(info #Collecting COSIM Files)
-CSRCS := $(filter-out $(SIM_HOME)/tiny_simple_system_main.cc, $(CSRCS))
 CSRCS += $(shell find $(COSIM_HOME) -name "*.cc")
 CSRCS += $(shell find $(TINY_HOME)/dv/cosim -name "*.cc")
 CSRCS_INC += $(shell find $(TINY_HOME)/dv/cosim -name "*.h")
@@ -20,4 +18,3 @@ SPIKE_OBJS :=$(addprefix $(SPIKE)/build/,${SPIKE_OBJS})
 
 CSRCS += ${SPIKE_OBJS}
 
-endif
