@@ -21,4 +21,4 @@ class TinyEmulatorCosim : public TinyEmulator {
 
     virtual int SetUp(int argc, char **argv, bool &exit_app) override;
     virtual bool Finish() override;
-}
+};

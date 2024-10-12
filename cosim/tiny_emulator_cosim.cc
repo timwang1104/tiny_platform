@@ -22,11 +22,6 @@ void TinyEmulatorCosim::CopyMemAreaToCosim(MemArea *area, uint32_t base_addr) {
     _cosim->backdoor_write_mem(base_addr, area->GetSizeBytes(), &mem_data[0]);
 }
 
-void TinyEmulatorCosim::CopyMemAreaToCosim(MemArea *area, uint32_t base_addr) {
-    auto mem_data = area->Read(0, area->GetSizeWords());
-    _cosim->backdoor_write_mem(base_addr, area->GetSizeBytes(), &mem_data[0]);
-}
-
 int TinyEmulatorCosim::SetUp(int argc, char **argv, bool &exit_app) {
     int ret_code = TinyEmulator::SetUp(argc, argv, exit_app);
     if (exit_app) {
@@ -34,4 +29,11 @@ int TinyEmulatorCosim::SetUp(int argc, char **argv, bool &exit_app) {
     }
 
     return 0;
+}
+
+bool TinyEmulatorCosim::Finish() {
+    std::cout << "Co-simulation matched " << _cosim->get_insn_cnt()
+              << " instructions\n" << std::endl;
+
+    return TinyEmulator::Finish();
 }

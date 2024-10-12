@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "VTinyEmulator__Syms.h"
+#include "Vtiny_platform__Syms.h"
 #include "tiny_pcounts.h"
 #include "tiny_emulator.h"
 #include "verilator_sim_ctrl.h"
@@ -11,8 +11,8 @@ TinyEmulator::TinyEmulator(const char *ram_hier_path, int ram_size_words)
     : _ram(ram_hier_path, ram_size_words, 4) {}
 
 std::string TinyEmulator::GetIsaString() const {
-  const VTinyEmulator &top = _top;
-  assert(top.TinyEmulator);
+  const Vtiny_platform &top = _top;
+  assert(top.tiny_platform);
 
   std::string base = "rv32i";
 
@@ -53,12 +53,6 @@ int TinyEmulator::Main(int argc, char **argv) {
 }
 
 
-void TinyEmulator::Step() {
-
-}
-
-
-
 void TinyEmulator::Run() {
   VerilatorSimCtrl &simctrl = VerilatorSimCtrl::GetInstance();
 
@@ -80,7 +74,7 @@ bool TinyEmulator::Finish() {
   // Set the scope to the root scope, the tiny_pcount_string function otherwise
   // doesn't know the scope itself. Could be moved to tiny_pcount_string, but
   // would require a way to set the scope name from here, similar to MemUtil.
-  svSetScope(svGetScopeFromName("TOP.tiny_simple_system"));
+  svSetScope(svGetScopeFromName("TOP.tiny_platform"));
 
   std::cout << "\nPerformance Counters" << std::endl
             << "====================" << std::endl;

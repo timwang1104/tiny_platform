@@ -11,7 +11,7 @@ BUILD_DIR = $(SIM_HOME)/build
 OBJ_DIR = $(BUILD_DIR)/obj_dir
 
 # Read env source files
-include $(TINY_HOME)/scripts/env.mk
+include $(SIM_HOME)/scripts/env.mk
 
 # Read core files
 include $(TINY_HOME)/rtl/core.mk
@@ -29,10 +29,17 @@ endif
 
 
 # test image
-IMAGE = $(TINY_HOME)/examples/tiny_sdk/software/hello_world/hello_world.elf
+# IMAGE = $(TINY_HOME)/examples/tiny_sdk/software/hello_world/hello_world.elf
+IMAGE = $(TINY_HOME)/examples/sw/simple_system/hello_test/hello_test.elf
 
 # Libraries
+ifeq ($(COSIM),yes)
+LIBS += "-lelf -ldl -lpthread -lboost_system -lboost_regex"
+else
 LIBS += "-lelf -ldl"
+endif
+
+$(info LIBS = $(LIBS))
 
 all: run
 

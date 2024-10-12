@@ -1,7 +1,8 @@
-COSIM_HOME = $(TINY_HOME)/dv/verilator/simple_system_cosim
+COSIM_HOME = $(SIM_HOME)/cosim
 
 $(info #Collecting COSIM Files)
 CSRCS += $(shell find $(COSIM_HOME) -name "*.cc")
+CSRCS_INC += $(shell find $(COSIM_HOME) -name "*.h")
 CSRCS += $(shell find $(TINY_HOME)/dv/cosim -name "*.cc")
 CSRCS_INC += $(shell find $(TINY_HOME)/dv/cosim -name "*.h")
 VSRCS += $(shell find $(COSIM_HOME) -name "*.sv")
@@ -17,4 +18,3 @@ SPIKE_OBJS := libspike_main.a  libriscv.a  libdisasm.a  libsoftfloat.a  libfesvr
 SPIKE_OBJS :=$(addprefix $(SPIKE)/build/,${SPIKE_OBJS})
 
 CSRCS += ${SPIKE_OBJS}
-

@@ -9,17 +9,15 @@ class TinyEmulator
   public:
     TinyEmulator(const char *ram_hier_path, int ram_size_words);
     virtual ~TinyEmulator() {};
-    virtual int main(int argc, char **argv);
+    virtual int Main(int argc, char **argv);
 
     // Return an ISA string, as understood by Spike, for the system being
     // simulated.
     std::string GetIsaString() const;
   protected:
-    TinyPlatform _top;
+    tiny_platform _top;
     VerilatorMemUtil _memutil;
     MemArea _ram;
-
-    virtual int CosimInit();
 
     virtual int SetUp(int argc, char **argv, bool &exit_app);
     virtual void Run();
